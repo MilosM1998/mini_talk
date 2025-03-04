@@ -1,4 +1,5 @@
 #include "mini_talk.h"
+#include <stdio.h>
 
 void	take_msg(int sig)
 {
@@ -30,8 +31,8 @@ int	main(void)
 	ft_putchar_fd('\n', 1);
 	free(pid_str);
 	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = take_msg;
 	sa.sa_flags = 0;
+	sa.sa_handler = take_msg;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
