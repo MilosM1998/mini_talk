@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_talk.h                                        :+:      :+:    :+:   */
+/*   ft_print_uint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 19:31:04 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/04/04 19:39:12 by mmilicev         ###   ########.fr       */
+/*   Created: 2024/09/29 15:48:39 by mmilicev          #+#    #+#             */
+/*   Updated: 2024/09/29 18:02:54 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_TALK_H
-# define MINI_TALK_H
-# define _POSIX_C_SOURCE 200809L
-# define _GNU_SOURCE
+#include "ft_printf.h"
 
-# include "./libft/libft.h"
-# include <signal.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <unistd.h>
+int	ft_print_uint(unsigned int n)
+{
+	int	count;
 
-#endif
+	count = 0;
+	if (n >= 10)
+	{
+		count += ft_print_uint(n / 10);
+		count += ft_print_uint(n % 10);
+	}
+	else
+		count += ft_putchar(n + '0');
+	return (count);
+}

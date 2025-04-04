@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:06:51 by mmilicev          #+#    #+#             */
-/*   Updated: 2024/09/23 20:10:04 by mmilicev         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:14:44 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "./get_next_line/get_next_line.h"
+# include "./ft_printf/ft_printf.h"
 
 typedef struct s_list
 {

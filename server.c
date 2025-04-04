@@ -1,53 +1,52 @@
-#include "mini_talk.h"
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/04 19:30:50 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/04/04 19:35:40 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void take_msg(int sig, siginfo_t *info, void *context)
+#include "./mini_talk.h"
+
+static void take_msg(int sig, siginfo_t *info, void *context)
 {
-    static char c = 0;
     static int i = 0;
-
-    (void)context; // Da izbegnemo warning
-
+    static char c = 0;
+    
+    (void)context;
     c <<= 1;
-    if (sig == SIGUSR2)
+    if(sig == SIGUSR2)
         c |= 1;
     i++;
-
-    if (i == 8)
+    if(i == 8)
     {
-        ft_putchar_fd(c, 1);
-        if (c == '\0')
-            ft_putchar_fd('\n', 1);
+        ft_printf("%c", c);
+        if(c == '\0')
+            ft_printf("\n");
         i = 0;
         c = 0;
     }
-
-    // Šaljemo potvrdu klijentu da smo primili bit
     kill(info->si_pid, SIGUSR1);
 }
 
-int main(void)
+int	main(void)
 {
-    struct sigaction sa;
-    char *pid_str;
+	struct sigaction sa;
+	int pid;
 
-    pid_str = ft_itoa(getpid());
-    ft_putstr_fd("Server PID is: ", 1);
-    ft_putstr_fd(pid_str, 1);
-    ft_putchar_fd('\n', 1);
-    free(pid_str);
-
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_SIGINFO; // Omogućava pristup info o pošiljaocu
-    sa.sa_sigaction = take_msg;
-
+	pid = getpid();
+	ft_printf("%d\n", pid);
+    
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &take_msg;
+	sigemptyset(&sa.sa_mask);
     sigaction(SIGUSR1, &sa, NULL);
     sigaction(SIGUSR2, &sa, NULL);
-
-    while (1)
-        pause();
-    
-    return (0);
+	while (1)
+		pause();
+	return (0);
 }
