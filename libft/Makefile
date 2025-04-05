@@ -6,7 +6,7 @@
 #    By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/07 14:09:47 by mmilicev          #+#    #+#              #
-#    Updated: 2024/11/20 19:53:04 by mmilicev         ###   ########.fr        #
+#    Updated: 2025/04/05 20:32:02 by mmilicev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,13 @@ NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
+
+GREEN	= \e[0;32m
+RED		= \e[0;31m
+YELLOW	= \e[0;33m
+BLUE	= \e[0;34m
+RESET	= \e[0m
+
 FTP = ft_printf/
 
 LIBFT_SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c ft_memset.c \
@@ -31,19 +38,27 @@ SRC = $(LIBFT_SRC) $(FT_PRINTF_SRC)
 
 OBJ = $(SRC:.c=.o)
 
-$(NAME): $(OBJ) 
-	$(AR) $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	@echo "$(BLUE)Compiling..$(RESET)"
+	@echo "$(YELLOW) $(AR) $(NAME) $(OBJ)"
+	@$(AR) $(NAME) $(OBJ)
 
 $(FTP)%.o: $(FTP)%.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	@echo "$(BLUE) Compiling FT_PRINTF..$(RESET)"
+	@echo "$(YELLOW) $(CC) -c $(CFLAGS) $< -o $@"
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 %.o: %.c
-	$(CC) -c  $(CFLAGS) $<
+	@echo "$(YELLOW) $(CC) -c $(CFLAGS) $<"
+	@$(CC) -c  $(CFLAGS) $<
 
 all: $(NAME)
+	@echo "$(GREEN) LIBFT successfully created!$(RESET)"
 
-clean: 
-	rm -f $(OBJ)
+clean:
+	@echo "$(BLUE)Cleaning objects..$(RESET)"
+	@echo "$(YELLOW) rm -f $(OBJ)"
+	@rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
