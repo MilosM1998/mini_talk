@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 19:30:50 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/04/05 20:36:00 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:08:35 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ static void	take_msg(int sig, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	struct sigaction	sa;
+	struct sigaction	siga;
 	int					pid;
 
 	pid = getpid();
 	ft_printf("%d\n", pid);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = &take_msg;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	siga.sa_flags = SA_SIGINFO;
+	siga.sa_sigaction = take_msg;
+	sigemptyset(&siga.sa_mask);
+	sigaction(SIGUSR1, &siga, NULL);
+	sigaction(SIGUSR2, &siga, NULL);
 	while (1)
 		pause();
 	return (0);

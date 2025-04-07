@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:47:31 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/04/05 20:39:58 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:08:09 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	send_msg(pid_t pid, char *msg)
 int	main(int ac, char **av)
 {
 	pid_t				pid;
-	struct sigaction	sa;
+	struct sigaction	siga;
 
 	if (ac != 3)
 	{
@@ -63,10 +63,10 @@ int	main(int ac, char **av)
 	pid = (pid_t)ft_atoi(av[1]);
 	if (pid_exist_check(pid))
 		return (1);
-	sa.sa_handler = handle_sig;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
+	siga.sa_handler = handle_sig;
+	siga.sa_flags = 0;
+	sigemptyset(&siga.sa_mask);
+	sigaction(SIGUSR1, &siga, NULL);
 	send_msg(pid, av[2]);
 	return (0);
 }

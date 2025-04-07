@@ -22,11 +22,11 @@ BLUE	= \e[0;34m
 RESET	= \e[0m
 
 
-all: $(SERVER) $(CLIENT) $(LIBFT)
+all: $(LIBFT) $(SERVER) $(CLIENT)
 
 $(LIBFT):
 	@echo "$(BLUE)Making libft.. $(MAKE) -C $(LIBFT_DIR)$(RESET)"
-	@$(MAKE) -C $(LIBFT_DIR) && echo "$(GREEN)Libft successfully compiled!$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR) && echo "$(GREEN)Libft successfully compiled.$(RESET)"
 
 
 $(SERVER): $(SERVER_OBJ) $(LIBFT)
@@ -38,7 +38,7 @@ $(CLIENT): $(CLIENT_OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFT) -o $(CLIENT) && echo "$(GREEN)Client successfully compiled.$(RESET)"
 
 %.o: %.c
-	@echo "$(YELLOW)$(CC) $(CFLAGS) -c $< -o $@$(RESET)"
+	@echo "$(YELLOW)$(CC) $(CFLAGS) $< -o $@$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 
